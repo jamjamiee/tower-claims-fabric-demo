@@ -59,7 +59,7 @@ import random
 import socket
 import time
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Iterable, List, Optional
 
@@ -129,7 +129,7 @@ class TowerClaimsGenerator:
     """Generate realistic but fully synthetic Tower claims operations events."""
 
     seed: int = 42
-    start_time: datetime = datetime.now(timezone.utc) - timedelta(hours=2)
+    start_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc) - timedelta(hours=2))
 
     def __post_init__(self) -> None:
         self.random = random.Random(self.seed)
