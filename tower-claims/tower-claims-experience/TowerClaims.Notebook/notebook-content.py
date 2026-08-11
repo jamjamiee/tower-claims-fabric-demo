@@ -59,7 +59,7 @@ import random
 import socket
 import time
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Iterable, List, Optional
 
@@ -129,11 +129,14 @@ class TowerClaimsGenerator:
     """Generate realistic but fully synthetic Tower claims operations events."""
 
     seed: int = 42
-    start_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc) - timedelta(hours=2))
+    max_events: Optional[int] = None
+    start_time: Optional[datetime] = None
 
     def __post_init__(self) -> None:
         self.random = random.Random(self.seed)
         self.sequence = 0
+        if self.start_time is None:
+            self.start_time = datetime.now(timezone.utc) - timedelta(hours=2)
         self.current_time = self.start_time
 
     def _weighted_choice(self, values: Iterable[str], weights: Iterable[float]) -> str:
@@ -141,8 +144,8 @@ class TowerClaimsGenerator:
 
     def _event_intensity(self) -> float:
         """Create a storm spike that peaks mid-run and then tapers."""
-        if max_events:
-            progress = min(self.sequence / max(max_events, 1), 1)
+        if self.max_events is not None:
+            progress = min(self.sequence / max(self.max_events, 1), 1)
         else:
             progress = (self.sequence % 240) / 240
         return 0.15 + 0.85 * math.exp(-((progress - 0.45) ** 2) / 0.025)
@@ -289,7 +292,7 @@ print(f"Connected to Eventstream source '{eventstream_source_name}' from host {s
 # CELL ********************
 
 # Stream synthetic events. In continuous mode, stop the notebook cell to end streaming.
-generator = TowerClaimsGenerator(seed=random_seed)
+generator = TowerClaimsGenerator(seed=random_seed, max_events=max_events)
 events: List[Dict[str, object]] = []
 event_count = 0
 

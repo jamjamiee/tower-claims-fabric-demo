@@ -116,7 +116,7 @@ You need:
 - A Fabric Eventstream named `TowerClaimsStream` with a custom endpoint source.
 - A Fabric notebook runtime that can install/use:
   - `azure-eventhub==5.11.5`
-  - `semantic-link-labs`
+  - `semantic-link-labs` (left unpinned so the notebook can use the Fabric-compatible version available in the workspace; pin a tenant-validated version if your environment requires fully reproducible installs)
   - `pandas`
 - Workspace permissions that allow the notebook to inspect Eventstream topology and source connection details.
 
