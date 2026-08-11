@@ -194,7 +194,7 @@ class TowerClaimsGenerator:
         digital_lodgement = channel == "My Tower"
         manual_intervention_required = (
             severity == "Critical"
-            or estimated_cost > 20000
+            or estimated_cost > 10000
             or (channel != "My Tower" and (severity in {"High", "Critical"} or estimated_cost > 10000))
             or claim_type in {"Retaining Wall", "Medical Assistance"}
         )
