@@ -1,0 +1,45 @@
+{
+  "sources": [
+    {
+      "id": "22222222-2222-4222-8222-222222222222",
+      "name": "CustomEndpoint-Source",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "33333333-3333-4333-8333-333333333333",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "DirectIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "00000000-0000-0000-0000-000000000000",
+        "tableName": "bronze_claims",
+        "connectionName": "REPLACE_WITH_TOWER_CLAIMS_EVENTHOUSE_CONNECTION",
+        "mappingRuleName": "REPLACE_WITH_BRONZE_CLAIMS_MAPPING_RULE"
+      },
+      "inputNodes": [
+        {
+          "name": "TowerClaimsStream-stream"
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "44444444-4444-4444-8444-444444444444",
+      "name": "TowerClaimsStream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "CustomEndpoint-Source"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}
