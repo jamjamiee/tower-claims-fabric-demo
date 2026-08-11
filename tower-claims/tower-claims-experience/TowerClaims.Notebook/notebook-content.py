@@ -195,7 +195,7 @@ class TowerClaimsGenerator:
         manual_intervention_required = (
             severity == "Critical"
             or estimated_cost > 20000
-            or channel != "My Tower"
+            or (channel != "My Tower" and (severity in {"High", "Critical"} or estimated_cost > 10000))
             or claim_type in {"Retaining Wall", "Medical Assistance"}
         )
         sla_at_risk = status not in {"Settled", "Rejected"} and days_open >= max(sla_days - 2, 1)
