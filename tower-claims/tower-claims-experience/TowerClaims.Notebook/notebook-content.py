@@ -85,6 +85,7 @@ batch_size = 10
 random_seed = 42
 weather_event_name = "Auckland Severe Rain and Wind Event"
 weather_event_id = "WEA-AKL-2026-08"
+manual_intervention_cost_threshold = 10000
 
 # Synthetic reference values used by the generator.
 PRODUCTS = ["House", "Contents", "Motor", "Travel"]
@@ -194,7 +195,7 @@ class TowerClaimsGenerator:
         digital_lodgement = channel == "My Tower"
         manual_intervention_required = (
             severity == "Critical"
-            or estimated_cost > 10000
+            or estimated_cost > manual_intervention_cost_threshold
             or (channel != "My Tower" and severity == "High")
             or claim_type in {"Retaining Wall", "Medical Assistance"}
         )
