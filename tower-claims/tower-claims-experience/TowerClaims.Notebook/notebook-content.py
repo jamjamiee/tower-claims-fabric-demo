@@ -230,7 +230,7 @@ class TowerClaimsGenerator:
             "wind_gust_kmh": round(self.random.uniform(65, 135) if weather_claim else self.random.uniform(5, 55), 1),
             "estimated_cost": estimated_cost,
             "actual_cost": actual_cost,
-            "excess_amount": round(self.random.choice([250, 400, 500, 750, 1000]), 2),
+            "excess_amount": float(self.random.choice([250, 400, 500, 750, 1000])),
             "reserve_amount": round(estimated_cost * self.random.uniform(1.0, 1.25), 2),
             "sla_days": sla_days,
             "days_open": days_open,

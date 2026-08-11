@@ -185,6 +185,7 @@ Recommended flow:
    - Verify the data source name `TowerClaims` points to the correct database after import.
 7. Open the Eventstream in Fabric and confirm the CustomEndpoint source and Eventhouse destination are connected.
 8. Open the notebook and confirm `eventstream = "TowerClaimsStream"` and `eventstream_source_name = "CustomEndpoint-Source"` match the imported Eventstream item.
+9. After import, verify the notebook `known_event_streams` metadata in `TowerClaims.Notebook/notebook-content.py`. Fabric may rewrite this automatically during Git sync; if it does not, update or clear the placeholder `artifact_id` and `stream_id` values so the notebook binds to the imported Eventstream item in your workspace.
 
 ## Running the notebook
 
